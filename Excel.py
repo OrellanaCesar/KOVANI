@@ -4,11 +4,12 @@ from datetime import date, timedelta
 
 class Excel(object):
     def __init__(self):
-        self.__excel = xw.Book('EPGBUltOK.xlsb')
+        self.__excel = xw.Book('BYMADATA.xlsb')
         self.__tickers = self.get_sheet('Tickers')
-        self.__ggal = self.get_sheet('GGAL')
+        self.__bolsuite = self.get_sheet('Bolsuite')
         self.__dates = self.create_date()
         self.__cauciones = self.create_cauciones()
+        self.__basesGGAL = pd.DataFrame()
 
 
     def get_excel(self):
@@ -30,16 +31,35 @@ class Excel(object):
     def get_cauciones(self):
         return self.__cauciones
 
+    def get_bolsuite(self):
+        return self.__bolsuite
+
 
     def get_data_frame(self,range_excel):
         rng = self.get_tickers().range(range_excel).expand()
         oOpciones = rng.value
-        data_frame = pd.DataFrame({'symbol': oOpciones},
-                                  columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
-                                           "change", "open", "high", "low", "previous_close", "turnover", "volume",
-                                           'operations', 'datetime'])
-        data_frame = data_frame.set_index('symbol')
-        data_frame['datetime'] = pd.to_datetime(data_frame['datetime'])
+        data_frame = pd.DataFrame({'Especie': oOpciones},
+                                  columns=["Especie", "CantC", "PrecioC","PrecioV", "CantV", "Ultimo", "Variacion",
+                                           "Apertura", "Max", "Min", "Cierre", "Monto $", "Nominal", "CantOp",
+                                           'Hora', 'Promedio'])
+
+        data_frame = data_frame.set_index('Especie')
+        data_frame['Hora'] = pd.to_datetime(data_frame['Hora'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return data_frame
 
 
