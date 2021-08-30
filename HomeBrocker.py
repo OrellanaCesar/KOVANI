@@ -10,9 +10,9 @@ class HomeBrocker(object):
         self.__password = password
         self.__broker = broker
         self.__excel = Excel()
-        self.__options = self.get_excel().get_sheet('A2:A500')
-        self.__actions = self.get_excel().get_sheet('C2:C500')
-        self.__bonds = self.get_excel().get_sheet('E2:E500')
+        self.__options = self.get_excel().get_data_frame('A2:A500')
+        self.__actions = self.get_excel().get_data_frame('C2:C500')
+        self.__bonds = self.get_excel().get_data_frame('E2:E500')
         self.__cauciones = self.get_excel().create_cauciones()
         self.__everything = self.get_actions().append(self.get_bonds())
         self.__home_broker = HomeBroker(int(broker), on_options=self.on_options, on_securities=self.on_securities,on_repos=self.on_repos, on_error=self.on_error)

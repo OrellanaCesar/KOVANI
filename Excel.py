@@ -1,6 +1,7 @@
 import pandas as pd
 import xlwings as xw
 from datetime import date, timedelta
+import datetime
 
 class Excel(object):
     def __init__(self):
@@ -46,20 +47,6 @@ class Excel(object):
         data_frame = data_frame.set_index('Especie')
         data_frame['Hora'] = pd.to_datetime(data_frame['Hora'])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return data_frame
 
 
@@ -67,8 +54,8 @@ class Excel(object):
         i = 1
         dates = []
         while i < 31:
-            dates = date.today() + timedelta(days=i)
-            dates.extend([dates])
+            fecha = date.today() + timedelta(days=i)
+            dates.extend([fecha])
             i += 1
         return dates
 

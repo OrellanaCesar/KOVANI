@@ -1,6 +1,7 @@
 from  tkinter import * 
 from tkinter.ttk import *
-from pyhomebroker import HomeBroker
+from tkinter import messagebox as MessageBox
+from HomeBrocker import HomeBrocker
 
 class Login (object):
     def __init__(self):
@@ -79,10 +80,18 @@ class Login (object):
         boton_acceso = Button(mainFrame, text="Conectar" ,command=self.conectar)
         boton_acceso.grid(column=0, row=8 ,columnspan=2, pady=10)
 
-        self.set_dni(self.get_dni().get())
-        self.set_usuario(self.get_usuario().get())
-        self.set_contrasenia(self.get_contrasenia().get())
+        # self.set_dni(self.get_dni().get())
+        # self.set_usuario(self.get_usuario().get())
+        # self.set_contrasenia(self.get_contrasenia().get())
         ventana.mainloop()
 
     def conectar(self):
+        try:
+            hb = HomeBrocker(self.get_broker(),self.get_dni().get(),self.get_usuario().get(),self.get_contrasenia().get())
+            hb.login_broker()
+            MessageBox.showinfo("Conectado" , "Se inicio session con exito!! .. en instante se actualizara el exel.")
+            self.set_conectado(True)
+            hb.run()
+        except:
+            MessageBox.showerror("Fallo Conecion", "DNI y/o Usuario y/o Contraseña son incorretas")
         return 'Terminar home Bronk'
