@@ -45,7 +45,7 @@ class Excel(object):
                                        'operations', 'datetime'])
 
         data_frame = data_frame.set_index('symbol')
-        data_frame['datatime'] = pd.to_datetime(data_frame['datatime'])
+        data_frame['datetime'] = pd.to_datetime(data_frame['datetime'])
 
         return data_frame
 
