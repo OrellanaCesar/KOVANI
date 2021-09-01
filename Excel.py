@@ -39,13 +39,13 @@ class Excel(object):
     def get_data_frame(self,range_excel):
         rng = self.get_tickers().range(range_excel).expand()
         oOpciones = rng.value
-        data_frame = pd.DataFrame({'Especie': oOpciones},
-                                  columns=["Especie", "CantC", "PrecioC","PrecioV", "CantV", "Ultimo", "Variacion",
-                                           "Apertura", "Max", "Min", "Cierre", "Monto $", "Nominal", "CantOp",
-                                           'Hora', 'Promedio'])
+        data_frame = pd.DataFrame({'symbol': oOpciones},
+                                  columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
+                                       "change", "open", "high", "low", "previous_close", "turnover", "volume",
+                                       'operations', 'datetime'])
 
-        data_frame = data_frame.set_index('Especie')
-        data_frame['Hora'] = pd.to_datetime(data_frame['Hora'])
+        data_frame = data_frame.set_index('symbol')
+        data_frame['datatime'] = pd.to_datetime(data_frame['datatime'])
 
         return data_frame
 
