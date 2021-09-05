@@ -91,8 +91,8 @@ class HomeBrocker(object):
         thisData = thisData.drop(['expiration', 'strike', 'kind'], axis=1)
         thisData['change'] = thisData["change"] / 100
         thisData['datetime'] = pd.to_datetime(thisData['datetime'])
-
-        thisData = thisData.rename(columns=self.rename_columns())
+        print("OPTIONS")
+        print(thisData)
         self.__options.update(thisData)
 
 
@@ -106,7 +106,9 @@ class HomeBrocker(object):
         thisData = thisData.set_index("symbol")
         thisData['change'] = thisData["change"] / 100
         thisData['datetime'] = pd.to_datetime(thisData['datetime'])
-        thisData = thisData.rename(columns=self.rename_columns())
+        
+        print("SECURITIES")
+        print(thisData)
         self.get_everything().update(thisData)
 
     def on_repos(self,online, quotes):
@@ -122,7 +124,9 @@ class HomeBrocker(object):
         thisData['ask_rate'] = thisData["ask_rate"] / 100
         thisData = thisData.drop(['open', 'high', 'low', 'volume', 'operations', 'datetime'], axis=1)
         thisData = thisData[['last', 'turnover', 'bid_amount', 'bid_rate', 'ask_rate', 'ask_amount']]
-        thisData = thisData.rename(columns=self.rename_columns())
+        
+        print("REPOS")
+        print(thisData)
         self.get_cauciones().update(thisData)
 
     def on_error(self,online, error):
@@ -142,6 +146,11 @@ class HomeBrocker(object):
         while True:
             try:
                 oRange = 'R' + str(len(self.get_everything()) + 2)
+                print(oRange)
+                #print('esto es lo que imprime opciones----------------------------------')
+                #print(self.get_options())
+                #print('esto es lo que imprime aciones----------------------------------')
+                #print(self.get_actions())
                 self.get_excel().get_bolsuite().range('R1').options(index=True, header=True).value = self.get_everything()
                 self.get_excel().range(oRange).options(index=True, header=False).value = self.get_options()
                 self.get_excel().range('AR2').options(index=True, header=False).value = self.get_cauciones()

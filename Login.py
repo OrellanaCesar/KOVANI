@@ -89,6 +89,7 @@ class Login (object):
         try:
             # print(self.get_broker(),self.get_dni().get(),self.get_usuario().get(),self.get_contrasenia().get())
             hb = HomeBrocker(self.get_broker(),self.get_dni().get(),self.get_usuario().get(),self.get_contrasenia().get())
+            print('entra')
             hb.login_broker()
             MessageBox.showinfo("Conectado" , "Se inicio session con exito!! .. en instante se actualizara el exel.")
             self.set_conectado(True)
