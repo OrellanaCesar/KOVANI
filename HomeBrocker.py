@@ -10,7 +10,7 @@ class HomeBrocker(object):
         self.__password = password
         self.__broker = broker
         self.__excel = Excel()
-        self.__options = self.get_excel().get_data_frame('A2:A500')
+        self.__options = self.get_excel().create_allOptions()
         self.__actions = self.get_excel().get_data_frame('C2:C500')
         self.__bonds = self.get_excel().get_data_frame('E2:E500')
         self.__cauciones = self.get_excel().create_cauciones()
@@ -147,13 +147,11 @@ class HomeBrocker(object):
             try:
                 oRange = 'R' + str(len(self.get_everything()) + 2)
                 print(oRange)
-                #print('esto es lo que imprime opciones----------------------------------')
-                #print(self.get_options())
-                #print('esto es lo que imprime aciones----------------------------------')
-                #print(self.get_actions())
+                print("EVERTHING")
+                print(self.get_everything())
                 self.get_excel().get_bolsuite().range('R1').options(index=True, header=True).value = self.get_everything()
-                self.get_excel().range(oRange).options(index=True, header=False).value = self.get_options()
-                self.get_excel().range('AR2').options(index=True, header=False).value = self.get_cauciones()
+                self.get_excel().get_bolsuite().range(oRange).options(index=True, header=False).value = self.get_options()
+                self.get_excel().get_bolsuite().range('AR2').options(index=True, header=False).value = self.get_cauciones()
                 time.sleep(2)
             except:
                 print('Hubo un error al actualizar excel')

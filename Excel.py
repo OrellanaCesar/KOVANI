@@ -11,7 +11,7 @@ class Excel(object):
         self.__dates = self.create_date()
         self.__cauciones = self.create_cauciones()
         self.__basesGGAL = pd.DataFrame()
-        # self.__allOptions = pd.DataFrame()
+        self.__allOptions = pd.DataFrame()
 
 
     def get_excel(self):
@@ -41,6 +41,24 @@ class Excel(object):
     def get_bolsuite(self):
         return self.__bolsuite
 
+
+    def get_allOption(self):
+        return self.__allOptions
+
+
+    def create_allOptions(self):
+        rng = self.get_tickers().range('A2:A500').expand()
+        oOpciones = rng.value
+        self.__allOptions = pd.DataFrame({'symbol': oOpciones},
+                                  columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
+                                           "change", "open", "high", "low", "previous_close", "turnover", "volume",
+                                           'operations', 'datetime'])
+
+        self.__allOptions = self.__allOptions.set_index('symbol')
+        self.__allOptions['datetime'] = pd.to_datetime(self.__allOptions['datetime'])
+        print('***********************ALL-OPTIONS****************************')
+        print(self.__allOptions)
+        return self.__allOptions
 
     def get_data_frame(self,range_excel):
         rng = self.get_tickers().range(range_excel).expand()
