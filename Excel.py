@@ -49,13 +49,13 @@ class Excel(object):
     def create_allOptions(self):
         rng = self.get_tickers().range('A2:A500').expand()
         oOpciones = rng.value
-        self.__allOptions = pd.DataFrame({'symbol': oOpciones},
-                                  columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
-                                           "change", "open", "high", "low", "previous_close", "turnover", "volume",
-                                           'operations', 'datetime'])
+        self.__allOptions = pd.DataFrame({'Especie': oOpciones},
+                                  columns=["Especie", "CantC", "PrecioC", "PrecioV", "CantV", "Ultimo",
+                                           "Variacion", "Apertura", "Max", "Min", "Cierre", "Monto $", "Nominal",
+                                           'CantOp', 'Hora'])
 
-        self.__allOptions = self.__allOptions.set_index('symbol')
-        self.__allOptions['datetime'] = pd.to_datetime(self.__allOptions['datetime'])
+        self.__allOptions = self.__allOptions.set_index('Especie')
+        self.__allOptions['Hora'] = pd.to_datetime(self.__allOptions['Hora'])
         print('***********************ALL-OPTIONS****************************')
         print(self.__allOptions)
         return self.__allOptions
@@ -63,33 +63,15 @@ class Excel(object):
     def get_data_frame(self,range_excel):
         rng = self.get_tickers().range(range_excel).expand()
         oOpciones = rng.value
-        data_frame = pd.DataFrame({'symbol': oOpciones},
-                                  columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
-                                       "change", "open", "high", "low", "previous_close", "turnover", "volume",
-                                       'operations', 'datetime'])
+        data_frame = pd.DataFrame({'Especie': oOpciones},
+                                  columns=["Especie", "CantC", "PrecioC", "PrecioV", "CantV", "Ultimo",
+                                           "Variacion", "Apertura", "Max", "Min", "Cierre", "Monto $", "Nominal",
+                                           'CantOp', 'Hora'])
 
-        data_frame = data_frame.set_index('symbol')
-        data_frame['datetime'] = pd.to_datetime(data_frame['datetime'])
+        data_frame = data_frame.set_index('Especie')
+        data_frame['Hora'] = pd.to_datetime(data_frame['Hora'])
         print('dataframe***************************************************')
         return data_frame
-    
-    # def get_data_frame_options(self,range_excel):
-    #     rng = self.get_tickers().range(range_excel).expand()
-    #     oOpciones = rng.value
-    #     data_frame = self.get_data_frame_options()
-    #     print('dataframe')
-    #     print(data_frame)
-    #     data_frame = pd.DataFrame({'symbol': oOpciones},
-    #                               columns=["symbol", "bid_size", "bid", "ask", "ask_size", "last",
-    #                                    "change", "open", "high", "low", "previous_close", "turnover", "volume",
-    #                                    'operations', 'datetime'])
-
-    #     data_frame = data_frame.set_index('symbol')
-    #     data_frame['datetime'] = pd.to_datetime(data_frame['datetime'])
-    #     # self.set_data_frame_options(data_frame)
-    #     print('dataframe options***************************************************')
-    #     print(data_frame)
-    #     return data_frame
 
 
     def create_date(self):
